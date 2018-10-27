@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import io.full.fullwords.adapter.RecyclerViewAdapter
+import io.full.fullwords.db.FullWordTable
 import io.full.fullwords.model.FullWord
 import kotlinx.android.synthetic.main.add_new_word.*
 
@@ -24,6 +25,7 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         val rv :RecyclerView = findViewById(R.id.full_words_rv)
+
         loadData()
         adapter = RecyclerViewAdapter(this,fullWordsList)
         rv.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
@@ -31,22 +33,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun loadData(){
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
-        fullWordsList.add(FullWord("Context","test","test",12345L))
+        fullWordsList.addAll(FullWordTable().getAllWords(this));
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,12 +67,14 @@ class DashboardActivity : AppCompatActivity() {
             if(fullWordsList.contains(fullWord)){
                 Toast.makeText(this,"Word already exists",Toast.LENGTH_SHORT).show()
             }else{
+                FullWordTable().insertWord(this,fullWord)
                 fullWordsList.add(fullWord)
                 adapter?.notifyDataSetChanged()
             }
             wordEdt?.setText("")
             meaningEdt?.setText("")
             sourceEdt?.setText("")
+
         }
     }
 }
