@@ -68,8 +68,9 @@ class DashboardActivity : AppCompatActivity() {
                 Toast.makeText(this,"Word already exists",Toast.LENGTH_SHORT).show()
             }else{
                 FullWordTable().insertWord(this,fullWord)
-                fullWordsList.add(fullWord)
-                adapter?.notifyDataSetChanged()
+                val tempList:ArrayList<FullWord> = ArrayList(fullWordsList)
+                tempList.add(0,fullWord)
+                adapter?.updateList(tempList)
             }
             wordEdt?.setText("")
             meaningEdt?.setText("")

@@ -1,6 +1,7 @@
 package io.full.fullwords.adapter
 
 import android.content.Context
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,10 @@ import android.widget.TextView
 import io.full.fullwords.R
 import io.full.fullwords.model.FullWord
 
-class RecyclerViewAdapter(pContext:Context,pItems:List<FullWord>):RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
+class RecyclerViewAdapter(pContext:Context,pItems:MutableList<FullWord>):RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
     val mContext:Context = pContext
-    val mitems:List<FullWord> = pItems
+    val mitems:MutableList<FullWord> = pItems
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater :LayoutInflater= mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -32,5 +33,12 @@ class RecyclerViewAdapter(pContext:Context,pItems:List<FullWord>):RecyclerView.A
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val meaningTv: TextView = itemView.findViewById(R.id.meaning_tv)
         val wordTv: TextView = itemView.findViewById(R.id.word_tv)
+    }
+
+    fun updateList(pNewList:List<FullWord>){
+        val diffResult:DiffUtil.DiffResult = DiffUtil.calculateDiff(FullWordDiffUtilCallBack(mitems,pNewList))
+        mitems.clear()
+        mitems.addAll(pNewList)
+        diffResult.dispatchUpdatesTo(this)
     }
 }
