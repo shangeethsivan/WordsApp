@@ -1,4 +1,4 @@
-package io.full.fullwords.helper
+package co.shrappz.wordsapp.helper
 
 import android.text.TextUtils
 import java.util.regex.Pattern

@@ -1,8 +1,8 @@
-package io.full.fullwords.adapter
+package co.shrappz.wordsapp.adapter
 
-import io.full.fullwords.model.FullWord
+import co.shrappz.wordsapp.model.NewWord
 
-class FullWordDiffUtilCallBack(pFirstList: List<FullWord>, pSecondList: List<FullWord>) : CustomDiffUtilCallBack<FullWord>(pFirstList, pSecondList) {
+class FullWordDiffUtilCallBack(pFirstList: List<NewWord>, pSecondList: List<NewWord>) : CustomDiffUtilCallBack<NewWord>(pFirstList, pSecondList) {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return mFirstList[oldItemPosition] == mSecondList[newItemPosition]

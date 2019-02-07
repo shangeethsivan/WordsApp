@@ -14,7 +14,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/word_edt"
+        android:id="@+id/word_edt_act"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -32,7 +32,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/meaning_edt"
+        android:id="@+id/meaning_edt_act"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -51,7 +51,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/source_edt"
+        android:id="@+id/source_edt_act"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -61,7 +61,7 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/add_word_btn"
+        android:id="@+id/add_word_btn_act"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

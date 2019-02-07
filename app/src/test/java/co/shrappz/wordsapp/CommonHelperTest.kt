@@ -1,7 +1,7 @@
-package io.full.fullwords
+package co.shrappz.wordsapp
 
 import android.text.TextUtils
-import io.full.fullwords.helper.CommonHelper
+import co.shrappz.wordsapp.helper.CommonHelper
 import org.junit.Test
 
 import org.junit.Assert.*

@@ -1,6 +1,7 @@
-package io.full.fullwords
+package co.shrappz.wordsapp
 
 import android.app.Dialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -10,16 +11,17 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import io.full.fullwords.adapter.RecyclerViewAdapter
-import io.full.fullwords.db.FullWordTable
-import io.full.fullwords.model.FullWord
-import kotlinx.android.synthetic.main.add_new_word.*
+import co.shrappz.wordsapp.adapter.RecyclerViewAdapter
+import co.shrappz.wordsapp.constants.IntentConstants
+import co.shrappz.wordsapp.db.NewWordTable
+import co.shrappz.wordsapp.model.NewWord
 
 class DashboardActivity : AppCompatActivity() {
 
-    private val fullWordsList:MutableList<FullWord> = mutableListOf()
+    private val newWordsList:MutableList<NewWord> = mutableListOf()
     var adapter:RecyclerViewAdapter? = null
     var mAddNewDialog:Dialog ?= null
+    val ADD_WORD_REQ_CODE = 1002
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +29,13 @@ class DashboardActivity : AppCompatActivity() {
         val rv :RecyclerView = findViewById(R.id.full_words_rv)
 
         loadData()
-        adapter = RecyclerViewAdapter(this,fullWordsList)
+        adapter = RecyclerViewAdapter(this,newWordsList)
         rv.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         rv.adapter = adapter
     }
 
     private fun loadData(){
-        fullWordsList.addAll(FullWordTable().getAllWords(this));
+        newWordsList.addAll(NewWordTable().getAllWords(this));
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,12 +45,13 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item?.itemId == R.id.add_word){
-            if(mAddNewDialog == null){
+            /*if(mAddNewDialog == null){
                 mAddNewDialog = Dialog(this,0)
                 mAddNewDialog!!.setContentView(R.layout.add_new_word)
                 mAddNewDialog!!.setCancelable(true)
             }
-            mAddNewDialog?.show()
+            mAddNewDialog?.show()*/
+            startActivityForResult(Intent(this,AddWordActivity::class.java),ADD_WORD_REQ_CODE)
             return true
         }
         return false
@@ -63,19 +66,36 @@ class DashboardActivity : AppCompatActivity() {
             val word = wordEdt?.text.toString()
             val meaning = meaningEdt?.text.toString()
             val source  = sourceEdt?.text.toString()
-            val fullWord = FullWord(word,meaning,source,System.currentTimeMillis())
-            if(fullWordsList.contains(fullWord)){
+            val newWord = NewWord(word,meaning,source,System.currentTimeMillis())
+            if(newWordsList.contains(newWord)){
                 Toast.makeText(this,"Word already exists",Toast.LENGTH_SHORT).show()
             }else{
-                FullWordTable().insertWord(this,fullWord)
-                val tempList:ArrayList<FullWord> = ArrayList(fullWordsList)
-                tempList.add(0,fullWord)
+                NewWordTable().insertWord(this,newWord)
+                val tempList:ArrayList<NewWord> = ArrayList(newWordsList)
+                tempList.add(0,newWord)
                 adapter?.updateList(tempList)
             }
             wordEdt?.setText("")
             meaningEdt?.setText("")
             sourceEdt?.setText("")
 
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == ADD_WORD_REQ_CODE){
+            val newWord: NewWord? = data?.getParcelableExtra<NewWord>(IntentConstants.INTENT_FULLWORD)
+            if(newWordsList.contains(newWord)){
+                Toast.makeText(this,"Word already exists",Toast.LENGTH_SHORT).show()
+            }else{
+                if(newWord!=null) {
+                    NewWordTable().insertWord(this, newWord)
+                    val tempList: ArrayList<NewWord> = ArrayList(newWordsList)
+                    tempList.add(0, newWord)
+                    adapter?.updateList(tempList)
+                }
+            }
         }
     }
 }

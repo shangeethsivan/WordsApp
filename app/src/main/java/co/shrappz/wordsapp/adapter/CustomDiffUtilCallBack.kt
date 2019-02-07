@@ -1,7 +1,6 @@
-package io.full.fullwords.adapter
+package co.shrappz.wordsapp.adapter
 
 import android.support.v7.util.DiffUtil
-import io.full.fullwords.model.FullWord
 
 abstract class CustomDiffUtilCallBack<E> : DiffUtil.Callback {
 

@@ -1,12 +1,11 @@
-package io.full.fullwords.model
+package co.shrappz.wordsapp.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.io.Serializable
 
-data class FullWord(var word:String, var meaning:String, var source:String,var dateAdded:Long): Parcelable,Comparable<FullWord>{
+data class NewWord(var word:String, var meaning:String, var source:String, var dateAdded:Long): Parcelable,Comparable<NewWord>{
 
-    override fun compareTo(other: FullWord): Int {
+    override fun compareTo(other: NewWord): Int {
         return word.compareTo(other.word)
     }
 
@@ -17,7 +16,6 @@ data class FullWord(var word:String, var meaning:String, var source:String,var d
             parcel.readLong())
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         dest.writeString(word)
         dest.writeString(meaning)
         dest.writeString(source)
@@ -29,15 +27,15 @@ data class FullWord(var word:String, var meaning:String, var source:String,var d
     }
 
     override fun equals(other: Any?): Boolean {
-        return word == (other as FullWord).word
+        return word == (other as NewWord).word
     }
 
-    companion object CREATOR : Parcelable.Creator<FullWord> {
-        override fun createFromParcel(parcel: Parcel): FullWord {
-            return FullWord(parcel)
+    companion object CREATOR : Parcelable.Creator<NewWord> {
+        override fun createFromParcel(parcel: Parcel): NewWord {
+            return NewWord(parcel)
         }
 
-        override fun newArray(size: Int): Array<FullWord?> {
+        override fun newArray(size: Int): Array<NewWord?> {
             return arrayOfNulls(size)
         }
     }
