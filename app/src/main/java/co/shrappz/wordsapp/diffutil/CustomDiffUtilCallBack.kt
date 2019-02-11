@@ -1,4 +1,4 @@
-package co.shrappz.wordsapp.adapter
+package co.shrappz.wordsapp.diffutil
 
 import android.support.v7.util.DiffUtil
 

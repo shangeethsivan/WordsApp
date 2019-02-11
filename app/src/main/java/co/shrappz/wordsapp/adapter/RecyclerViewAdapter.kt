@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import co.shrappz.wordsapp.R
+import co.shrappz.wordsapp.diffutil.FullWordDiffUtilCallBack
 import co.shrappz.wordsapp.model.NewWord
 
 class RecyclerViewAdapter(pContext:Context,pItems:MutableList<NewWord>):RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
@@ -35,8 +36,8 @@ class RecyclerViewAdapter(pContext:Context,pItems:MutableList<NewWord>):Recycler
         val wordTv: TextView = itemView.findViewById(R.id.word_tv)
     }
 
-    fun updateList(pNewList:List<NewWord>){
-        val diffResult:DiffUtil.DiffResult = DiffUtil.calculateDiff(FullWordDiffUtilCallBack(mitems,pNewList))
+    fun updateList(pNewList:List<NewWord>, pIsSorting : Boolean){
+        val diffResult:DiffUtil.DiffResult = DiffUtil.calculateDiff(FullWordDiffUtilCallBack(mitems, pNewList),pIsSorting)
         mitems.clear()
         mitems.addAll(pNewList)
         diffResult.dispatchUpdatesTo(this)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,21 +8,45 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/word_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Word:" />
+
+    <TextView
         android:id="@+id/word_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/word_title"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Context" />
+
+
+    <TextView
+        android:id="@+id/meaning_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/word_title"
+        android:text="Meaning:" />
 
     <TextView
         android:id="@+id/meaning_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:textSize="16sp"
         android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@id/word_title"
+        app:layout_constraintStart_toEndOf="@id/meaning_title"
         tools:text="the circumstances that form the setting for an event, statement, or idea, and in terms of which it can be fully understood." />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

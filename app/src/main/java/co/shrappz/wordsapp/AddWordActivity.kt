@@ -14,10 +14,8 @@ class AddWordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_word)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
-
 
     fun onClick(view: View){
         if(view.id == add_word_btn_act.id){
@@ -32,6 +30,5 @@ class AddWordActivity : AppCompatActivity() {
             finish()
         }
     }
-
 
 }

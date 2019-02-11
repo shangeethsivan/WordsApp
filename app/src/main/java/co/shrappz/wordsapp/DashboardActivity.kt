@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.UserDictionary
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
@@ -15,6 +16,7 @@ import co.shrappz.wordsapp.adapter.RecyclerViewAdapter
 import co.shrappz.wordsapp.constants.IntentConstants
 import co.shrappz.wordsapp.db.NewWordTable
 import co.shrappz.wordsapp.model.NewWord
+import java.util.*
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -54,6 +56,12 @@ class DashboardActivity : AppCompatActivity() {
             startActivityForResult(Intent(this,AddWordActivity::class.java),ADD_WORD_REQ_CODE)
             return true
         }
+        else if(item?.itemId == R.id.sort_by_name){
+            val sortedList = ArrayList<NewWord>(newWordsList);
+            sortedList.sort()
+            adapter?.updateList(sortedList,true)
+            return true
+        }
         return false
     }
 
@@ -73,7 +81,7 @@ class DashboardActivity : AppCompatActivity() {
                 NewWordTable().insertWord(this,newWord)
                 val tempList:ArrayList<NewWord> = ArrayList(newWordsList)
                 tempList.add(0,newWord)
-                adapter?.updateList(tempList)
+                adapter?.updateList(tempList,false)
             }
             wordEdt?.setText("")
             meaningEdt?.setText("")
@@ -93,7 +101,7 @@ class DashboardActivity : AppCompatActivity() {
                     NewWordTable().insertWord(this, newWord)
                     val tempList: ArrayList<NewWord> = ArrayList(newWordsList)
                     tempList.add(0, newWord)
-                    adapter?.updateList(tempList)
+                    adapter?.updateList(tempList,false)
                 }
             }
         }

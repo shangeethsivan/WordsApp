@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_add"
         android:title="Add Word"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/sort_by_name"
+        android:title="Sort"
+        app:showAsAction="ifRoom" />
 </menu>
