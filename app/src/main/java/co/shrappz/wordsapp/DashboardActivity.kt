@@ -57,7 +57,7 @@ class DashboardActivity : AppCompatActivity() {
             return true
         }
         else if(item?.itemId == R.id.sort_by_name){
-            val sortedList = ArrayList<NewWord>(newWordsList);
+            val sortedList = ArrayList<NewWord>(newWordsList)
             sortedList.sort()
             adapter?.updateList(sortedList,true)
             return true

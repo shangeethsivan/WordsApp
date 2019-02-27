@@ -37,9 +37,11 @@ class RecyclerViewAdapter(pContext:Context,pItems:MutableList<NewWord>):Recycler
     }
 
     fun updateList(pNewList:List<NewWord>, pIsSorting : Boolean){
-        val diffResult:DiffUtil.DiffResult = DiffUtil.calculateDiff(FullWordDiffUtilCallBack(mitems, pNewList),pIsSorting)
+
+        val diffResult:DiffUtil.DiffResult = DiffUtil.calculateDiff(FullWordDiffUtilCallBack(mitems, pNewList))
         mitems.clear()
         mitems.addAll(pNewList)
         diffResult.dispatchUpdatesTo(this)
+
     }
 }
